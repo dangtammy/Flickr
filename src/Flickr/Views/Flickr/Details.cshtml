@@ -1,0 +1,16 @@
+﻿@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model Flickr.Models.Photo
+
+<div class="bodyContent">
+    <h1>Photo Details</h1>
+    <hr />
+    <h1>@Html.DisplayFor(model => model.Title)</h1>
+    <img class="det-img" src="@Html.DisplayFor(model => model.Image)"/>
+    <h5>@Html.DisplayFor(model => model.Description)</h5>
+
+    <p>@Html.ActionLink("Back to Profile", "UserPage", "Flickr")</p>
+</div>

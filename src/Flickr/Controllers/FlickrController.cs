@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Flickr.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
 
 namespace Flickr.Controllers
 {
@@ -43,6 +44,43 @@ namespace Flickr.Controllers
             _db.Photos.Add(photo);
             _db.SaveChanges();
             return RedirectToAction("UserPage", "Flickr");
+        }
+
+        public IActionResult Edit(int id)
+        {
+            var thisPhoto = _db.Photos.FirstOrDefault(photos => photos.Id == id);
+            return View(thisPhoto);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Photo photo)
+        {
+            _db.Entry(photo).State = EntityState.Modified;
+            _db.SaveChanges();
+            return RedirectToAction("UserPage", "Flickr");
+        }
+
+        public IActionResult Details(int id)
+        {
+            var thisPhoto = _db.Photos.FirstOrDefault(photos => photos.Id == id);
+            return View(thisPhoto);
+        }
+
+        //Get Delete
+        public IActionResult Delete(int id)
+        {
+            var thisPhoto = _db.Photos.FirstOrDefault(photos => photos.Id == id);
+            return View(thisPhoto);
+        }
+
+        //Post - Delete
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            var thisPhoto = _db.Photos.FirstOrDefault(photos => photos.Id == id);
+            _db.Remove(thisPhoto);
+            _db.SaveChanges();
+            return RedirectToAction("UserPage" ,"Flickr");
         }
     }
 }

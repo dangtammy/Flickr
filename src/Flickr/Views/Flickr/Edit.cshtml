@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+@model Flickr.Models.Photo
+
+<div class="bodyContent">
+    <h1>Edit</h1>
+    <hr />
+    <h4>Edit Photo: @Html.DisplayFor(model => model.Title)</h4>
+
+    @using (Html.BeginForm())
+    {
+        @Html.HiddenFor(model => model.Id)
+
+        @Html.LabelFor(model => model.Title)
+        @Html.EditorFor(model => model.Title)
+
+        @Html.LabelFor(model => model.Image)
+        @Html.EditorFor(model => model.Image)
+
+        @Html.LabelFor(model => model.Description)
+        @Html.EditorFor(model => model.Description)
+
+
+        <input type="submit" value="Save" class="btn btn-warning" />
+    }
+    <p>@Html.ActionLink("Back to Profile", "UserPage", "Flickr")</p>
+</div>
