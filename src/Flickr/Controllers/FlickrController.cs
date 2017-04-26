@@ -8,6 +8,7 @@ using Flickr.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Flickr.Controllers
 {
@@ -16,11 +17,13 @@ namespace Flickr.Controllers
     {
         private readonly ApplicationDbContext _db;
         private readonly UserManager<ApplicationUser> _userManager;
+        private IHostingEnvironment _environment;
 
-        public FlickrController(UserManager<ApplicationUser> userManager, ApplicationDbContext db)
+        public FlickrController(UserManager<ApplicationUser> userManager, ApplicationDbContext db, IHostingEnvironment environment)
         {
             _userManager = userManager;
             _db = db;
+            _environment = environment;
         }
 
         public async Task<IActionResult> UserPage()
@@ -82,5 +85,7 @@ namespace Flickr.Controllers
             _db.SaveChanges();
             return RedirectToAction("UserPage" ,"Flickr");
         }
+
+
     }
 }
