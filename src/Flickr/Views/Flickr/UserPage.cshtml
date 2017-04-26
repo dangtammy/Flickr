@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model IEnumerable<Flickr.Models.Photo>
+
+@if (Model.Any())
+{
+    <ul>
+        @foreach (var listPhoto in Model)
+        {
+            <li>@Html.DisplayFor(modelItem => listPhoto.Title)</li>         
+        }
+    </ul>
+}
+else
+{
+    <p>No photos have been added yet!</p>
+}
+
+@Html.ActionLink("Create new", "Create")
