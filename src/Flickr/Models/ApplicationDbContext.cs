@@ -13,11 +13,13 @@ namespace Flickr.Models
         {
 
         }
+        public DbSet<Photo> Photos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            //Added this builder line
+            //builder.Entity<Photo>().HasKey(m => m.Id);
             base.OnModelCreating(builder);
         }
-        public DbSet<Photo> Photos { get; set; }
     }
 }

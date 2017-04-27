@@ -8,9 +8,10 @@ using Flickr.Models;
 namespace Flickr.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170427161250_ChangeImageToByte")]
+    partial class ChangeImageToByte
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
@@ -72,9 +73,7 @@ namespace Flickr.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<byte[]>("File");
-
-                    b.Property<string>("Image");
+                    b.Property<byte>("Image");
 
                     b.Property<string>("Title");
 

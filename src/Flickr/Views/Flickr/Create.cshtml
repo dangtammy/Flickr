@@ -7,20 +7,20 @@
 
 <h2>Add a New Photo</h2>
 <hr />
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "Flickr", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
+    @Html.AntiForgeryToken()
+
     @Html.LabelFor(model => model.Title)
+
     @Html.EditorFor(model => model.Title)
 
-    <form method="post" asp-action="UserPage" asp-controller="Flickr" enctype="multipart/form-data">
-        @*@Html.LabelFor(model => model.Image)
-            @Html.EditorFor(model => model.Image)*@
-
+        
         @Html.LabelFor(model => model.Description)
         @Html.EditorFor(model => model.Description)
-        <input type="file" name="files" multiple />
+        <input type="file" id="files" name="files" />
         <input type="submit" value="Upload" />
-    </form>
+  
 }
 
 

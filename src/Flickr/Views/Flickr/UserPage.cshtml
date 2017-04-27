@@ -9,8 +9,13 @@
 {
         @foreach (var listPhoto in Model)
         {
+            var bytes = listPhoto.File;
+            var base64 = Convert.ToBase64String(bytes);
+            var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+            <img class="user-img" src="@imgsrc" />
+
             <h2 class="test">@Html.DisplayFor(modelItem => listPhoto.Title)</h2>
-            <img class="user-img" src="@Html.DisplayFor(modelItem => listPhoto.Image)" />
+            
             <h4>@Html.DisplayFor(modelItem => listPhoto.Description)</h4>
             <p> @Html.ActionLink("Details", "Details", new { id = listPhoto.Id}) | @Html.ActionLink("Edit", "Edit", new { id = listPhoto.Id }) | @Html.ActionLink("Delete", "Delete", new { id = listPhoto.Id })</p>
         }
