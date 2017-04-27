@@ -46,6 +46,9 @@ namespace Flickr.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Photo photo, IFormFile files)
         {
+            if (ModelState.IsValid)
+            {
+
             Byte[] m_bytes = ConvertToBytes(files);
             photo.File = m_bytes; 
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -67,6 +70,8 @@ namespace Flickr.Controllers
                 _db.Photos.Add(photo);
                 _db.SaveChanges();
                 return RedirectToAction("UserPage", "Flickr");
+            }
+            return View(photo);
         }
 
         private byte[] ConvertToBytes(IFormFile image)
