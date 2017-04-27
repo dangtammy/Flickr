@@ -86,8 +86,14 @@ namespace Flickr.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Photo photo)
+        public async Task<IActionResult> Edit(Photo photo, IFormFile files)
         {
+            Byte[] m_bytes = ConvertToBytes(files);
+            photo.File = m_bytes;
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var currentUser = await _userManager.FindByIdAsync(userId);
+
+
             _db.Entry(photo).State = EntityState.Modified;
             _db.SaveChanges();
             return RedirectToAction("UserPage", "Flickr");

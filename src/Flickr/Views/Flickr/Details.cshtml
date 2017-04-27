@@ -5,12 +5,19 @@
 
 @model Flickr.Models.Photo
 
+@if (Model!=null)
+{
+    var bytes = Model.File;
+    var base64 = Convert.ToBase64String(bytes);
+    var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+
 <div class="bodyContent">
     <h1>Photo Details</h1>
     <hr />
     <h1>@Html.DisplayFor(model => model.Title)</h1>
-    <img class="det-img" src="@Html.DisplayFor(model => model.Image)"/>
+    <img class="det-img" src="@imgsrc"/>
     <h5>@Html.DisplayFor(model => model.Description)</h5>
 
     <p>@Html.ActionLink("Back to Profile", "UserPage", "Flickr")</p>
 </div>
+}

@@ -6,25 +6,30 @@
 
 @model Flickr.Models.Photo
 
+@*@if (Model != null)
+{
+    var bytes = Model.File;
+    var base64 = Convert.ToBase64String(bytes);
+    var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);*@
 <div class="bodyContent">
     <h1>Edit</h1>
     <hr />
     <h4>Edit Photo: @Html.DisplayFor(model => model.Title)</h4>
-
-    @using (Html.BeginForm())
+    
+    @using (Html.BeginForm("Edit", "Flickr", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
+        @Html.AntiForgeryToken()
+
         @Html.HiddenFor(model => model.Id)
 
         @Html.LabelFor(model => model.Title)
         @Html.EditorFor(model => model.Title)
 
-        @Html.LabelFor(model => model.Image)
-        @Html.EditorFor(model => model.Image)
 
         @Html.LabelFor(model => model.Description)
         @Html.EditorFor(model => model.Description)
 
-
+        <input type="file" id="files" name="files" />
         <input type="submit" value="Save" class="btn btn-warning" />
     }
     <p>@Html.ActionLink("Back to Profile", "UserPage", "Flickr")</p>
